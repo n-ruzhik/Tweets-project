@@ -18,7 +18,9 @@
   text-transform: uppercase;
   color: #ebd8ff;
 
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px; */
 }
 
 .cardThumb {
@@ -58,7 +60,6 @@
   left: 158px;
   width: 64px;
   height: 64px;
-  /* border-radius: 50%; */
   background: rgb(87 54 163);
 }
 
