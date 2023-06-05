@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: linear-gradient(
+    47deg,
+    rgba(71, 28, 169, 1) 0%,
+    rgba(87, 54, 163, 1) 50%,
+    rgba(75, 42, 153, 1) 94%
+  );
+}
+
+.headerLogo {
+  margin-left: 30px;
+  margin-right: 20px;
+}
+
+.navBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.navBarLink {
+  text-decoration: none;
+  text-align: center;
+  min-width: 80px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.navBarLink:hover {
+  color: #5cd3a8;
+}
