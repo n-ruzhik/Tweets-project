@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import Notiflix from 'notiflix';
 import api from '../../servises/mockapi';
 import TweetCard from 'components/TweetCard';
+import Loader from '../../components/Loader';
 import css from './Tweets.module.css';
 
 export default function Tweets() {
@@ -10,6 +11,7 @@ export default function Tweets() {
   const [totalUsers, setTotalUsers] = useState(null);
   const [showMoreButton, setShowMoreButton] = useState(false);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsloading] = useState(false);
 
   const location = useLocation();
   const pathBack = useRef(location.state?.from ?? '/');
@@ -21,38 +23,8 @@ export default function Tweets() {
     localStorage.setItem('followingUsers', JSON.stringify([]));
   }, []);
 
-  // useEffect(() => {
-  //   try {
-  //     const getUsers = async () => {
-  //       const { data } = await fetchUsers();
-
-  //       if (!data.length) {
-  //         Notiflix.Notify.failure('Please, try again');
-  //         return;
-  //       }
-
-  //       const firstThreeElements = data.slice(0, threeCardsToRender);
-  //       const filteredData = dataNormalizer(firstThreeElements);
-
-  //       setUsers(filteredData);
-
-  //       if (threeCardsToRender !== data.length) {
-  //         setShowMoreButton(true);
-  //       } else if (users.length === data.length) {
-  //         setShowMoreButton(false);
-  //       } else {
-  //         setShowMoreButton(false);
-  //         Notiflix.Notify.failure('There is no more tweets');
-  //       }
-  //     };
-  //     getUsers();
-  //   } catch (e) {
-  //     Notiflix.Notify.failure('Sorry, something went wrong');
-  //     console.log(e.message);
-  //   }
-  // }, [threeCardsToRender]);
-
   useEffect(() => {
+    setIsloading(true);
     api
       .fetchTweets(page)
       .then(results => {
@@ -69,6 +41,9 @@ export default function Tweets() {
       .catch(error => {
         Notiflix.Notify.failure('Sorry, something went wrong');
         console.log(error);
+      })
+      .finally(() => {
+        setIsloading(false);
       });
   }, [page, totalUsers]);
 
@@ -86,12 +61,18 @@ export default function Tweets() {
       });
   }, []);
 
+  useEffect(() => {
+    if (users.length === totalUsers)
+      Notiflix.Notify.failure('There is no more tweets');
+  }, [users, totalUsers]);
+
   const onLoadMore = () => {
     setPage(page => page + 1);
   };
 
   return (
     <div className={css.tweetsContainer}>
+      {isLoading && <Loader />}
       <Link to={pathBack.current} className={css.backBtn}>
         Back
       </Link>

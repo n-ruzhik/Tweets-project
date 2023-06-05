@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import { NavLink } from 'react-router-dom';
 import HeaderLogo from '../images/page-logo.png';
+import Loader from '../components/Loader';
 import css from './Layout.module.css';
 
 export default function Layout() {
@@ -26,7 +27,7 @@ export default function Layout() {
           </NavLink>
         </div>
       </header>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
     </div>
